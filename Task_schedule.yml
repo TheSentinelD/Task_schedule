@@ -1,0 +1,16 @@
+---
+- name: Nastavení task scheduleru pro automatickou aktualizaci Windows
+  hosts: "{{ seznam_stanic }}"
+  tasks: 
+  - name: Update Windows
+    win_scheduled_task: 
+     name: Update_windows
+     description: automatický update windows pomocí Ansible
+     start_when_available: yes
+     actions: 
+     - path: C:\Ansible\ProvisionCallback_update_58.ps1
+     triggers: 
+     - days_of_month: 20
+       type: monthly
+     state: present
+     
